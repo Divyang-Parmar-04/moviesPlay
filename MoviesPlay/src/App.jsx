@@ -17,8 +17,6 @@ function App() {
 
   const dispatch = useDispatch()
 
-  
-
   useEffect(() => {
     if (hasFetched.current) return;
 
