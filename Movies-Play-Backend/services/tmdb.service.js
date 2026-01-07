@@ -114,18 +114,20 @@ const searchTMDB = async (query) => {
 
 //TMDB FILLTERS
 const fetchByGenre = async (req, res) => {
-
-  const { genreName,
+  const {
+    genreName,
     type = "movie", // "movie" | "tv"
-  } = req.body
+  } = req.body;
 
   try {
-    let page = 1
+    let page = 1;
 
     const genreId = GENRE_MAP[genreName];
-    if (!genreId) return res.json({ data: [], msg: "NO GENRE" });
+    if (!genreId) {
+      return res.json({ data: [], msg: "NO GENRE" });
+    }
 
-    const res = await axios.get(`${BASE_URL}/discover/${type}`, {
+    const axiosRes = await axios.get(`${BASE_URL}/discover/${type}`, {
       params: {
         api_key: API_KEY,
         with_genres: genreId,
@@ -134,18 +136,18 @@ const fetchByGenre = async (req, res) => {
       },
     });
 
-    const data = res.data.results.map(item => ({
+    const data = axiosRes.data.results.map(item => ({
       ...item,
-      type, // inject media type manually
+      type, // inject media type
     }));
 
-    return res.json({ data: data, msg: "true" })
+    return res.json({ data, msg: "true" });
 
   } catch (error) {
-    console.log(error)
-    return res.json({ data: [], msg: "error" })
+    console.error(error);
+    return res.status(500).json({ data: [], msg: "error" });
   }
-}
+};
 
 
 //TMDB ALL DETAILES 
