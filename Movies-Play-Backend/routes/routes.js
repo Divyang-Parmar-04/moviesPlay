@@ -23,6 +23,6 @@ router.get("/tmdb/movie/:id", getMovieDetails);
 
 router.get("/tmdb/tv/:id", getTVDetails);
 
-router.get("/tmdb/:type/:id", getWatchProviders )
+router.get("/tmdb/providers/:type/:id", getWatchProviders);
 
 module.exports = router
