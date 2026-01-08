@@ -225,4 +225,44 @@ const getTVDetails = async (req, res) => {
   }
 };
 
-module.exports = { fetchByGenre, fetchBollywoodMovies, fetchHollywoodMovies, fetchPopularMovies, fetchSeries, getGenreMap, searchTMDB , getMovieDetails,getTVDetails } 
+
+
+const getWatchProviders = async (req,res)=> {
+  try {
+    const { type, id } = req.params;
+    const region = req.query.region || "IN"; // default India
+
+    if (!["movie", "tv"].includes(type)) {
+      return res.status(400).json({ message: "Invalid type" });
+    }
+
+    const response = await fetch(
+      `${BASE_URL}/${type}/${id}/watch/providers`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    const providers =
+      data?.results?.[region]?.flatrate ||
+      data?.results?.[region]?.rent ||
+      data?.results?.[region]?.buy ||
+      [];
+
+    res.json({
+      region,
+      providers,
+    });
+  } catch (error) {
+    console.error("TMDB Watch Provider Error:", error);
+    res.status(500).json({ message: "Failed to fetch watch providers" });
+  }
+}
+
+
+module.exports = { getWatchProviders,fetchByGenre, fetchBollywoodMovies, fetchHollywoodMovies, fetchPopularMovies, fetchSeries, getGenreMap, searchTMDB , getMovieDetails,getTVDetails } 

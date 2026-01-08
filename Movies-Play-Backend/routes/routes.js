@@ -1,6 +1,6 @@
 const express = require("express")
 const {getAllMovies} = require('../controller/movieController');
-const { searchTMDB, fetchByGenre, getMovieDetails, getTVDetails } = require("../services/tmdb.service");
+const { searchTMDB, fetchByGenre, getMovieDetails, getTVDetails,getWatchProviders } = require("../services/tmdb.service");
 
 const router = express.Router()
 
@@ -22,5 +22,7 @@ router.post("/search/genre",fetchByGenre)
 router.get("/tmdb/movie/:id", getMovieDetails);
 
 router.get("/tmdb/tv/:id", getTVDetails);
+
+router.get("/tmdb/:type/:id", getWatchProviders )
 
 module.exports = router
