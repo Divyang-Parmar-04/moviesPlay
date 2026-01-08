@@ -77,9 +77,9 @@ const Footer = () => {
           <p className="mt-3 md:mt-0 text-center">
             Movie data & streams powered by{" "}
             <span className="text-white font-medium">TMDB</span>,{" "}
-            <span className="text-white font-medium">VidAPI</span>,{" "}
+            {/* <span className="text-white font-medium">VidAPI</span>,{" "}
             <span className="text-white font-medium">CinemaOS</span> &{" "}
-            <span className="text-white font-medium">MoviesAPI</span>
+            <span className="text-white font-medium">MoviesAPI</span> */}
           </p>
             <p className="mt-3 md:mt-0">
             Built with ❤️ for movie lovers

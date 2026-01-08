@@ -45,7 +45,7 @@ function App() {
   return (
     <>
       <Toaster />
-      <DisclaimerPopup/>
+      {/* <DisclaimerPopup/> */}
       <Navbar />
       <Outlet />
       <Footer />

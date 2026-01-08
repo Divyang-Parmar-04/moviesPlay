@@ -10,7 +10,9 @@ const MoviesSection = ({ title, movies, type }) => {
 
   useEffect(() => {
     setMovies(movies)
-    setTimeout(() => { setIsLoading(false) }, 2000)
+    if(movies){
+      setTimeout(() => { setIsLoading(false) }, 2000)
+    }
   }, [movies])
 
   return (

@@ -74,7 +74,7 @@ function About() {
             <li>
               <span className="text-white font-medium">TMDB API</span> – Movie metadata, posters, and information
             </li>
-            <li>
+            {/* <li>
               <span className="text-white font-medium">VidAPI</span> – Streaming source aggregation
             </li>
             <li>
@@ -82,7 +82,7 @@ function About() {
             </li>
             <li>
               <span className="text-white font-medium">MoviesAPI</span> – Additional movie data services
-            </li>
+            </li> */}
           </ul>
 
           <p className="mt-4 text-sm text-gray-500">
