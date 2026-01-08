@@ -28,9 +28,6 @@ It allows users to explore movies, view details, trailers, and access publicly a
 
 ### APIs & Data Sources
 - **TMDB API** – Movie metadata, posters & information
-- **VidAPI** – Streaming source aggregation
-- **CinemaOS** – Streaming data provider
-- **MoviesAPI** – Additional movie data services
 
 ---
 
@@ -61,9 +58,6 @@ All data usage follows the terms and policies of the respective API providers.
 
 - **TMDB API** – Movie data, posters, and metadata  
   > This product uses the TMDB API but is not endorsed or certified by TMDB.
-- **VidAPI**
-- **CinemaOS**
-- **MoviesAPI**
 
 ---
 
