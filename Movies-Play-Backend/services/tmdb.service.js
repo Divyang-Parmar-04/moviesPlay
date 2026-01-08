@@ -225,7 +225,6 @@ const getTVDetails = async (req, res) => {
   }
 };
 
-
 const getWatchProviders = async (req, res) => {
   try {
     const { type, id } = req.params;
@@ -236,22 +235,15 @@ const getWatchProviders = async (req, res) => {
     }
 
     const response = await fetch(
-      `${BASE_URL}/${type}/${id}/watch/providers`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
-          Accept: "application/json",
-        },
-      }
+      `${BASE_URL}/${type}/${id}/watch/providers?api_key=${process.env.TMDB_API_KEY}`
     );
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("TMDB ERROR:", response.status, errorText);
-
+      const errText = await response.text();
+      console.error("TMDB ERROR:", response.status, errText);
       return res.status(response.status).json({
         message: "TMDB request failed",
-        tmdbError: errorText,
+        tmdbError: errText,
       });
     }
 
@@ -270,7 +262,6 @@ const getWatchProviders = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
 
 
 module.exports = { getWatchProviders, fetchByGenre, fetchBollywoodMovies, fetchHollywoodMovies, fetchPopularMovies, fetchSeries, getGenreMap, searchTMDB, getMovieDetails, getTVDetails } 
