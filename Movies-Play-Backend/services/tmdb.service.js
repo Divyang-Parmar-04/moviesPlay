@@ -225,6 +225,7 @@ const getTVDetails = async (req, res) => {
   }
 };
 
+
 const getWatchProviders = async (req, res) => {
   try {
     const { type, id } = req.params;
@@ -239,14 +240,18 @@ const getWatchProviders = async (req, res) => {
       {
         headers: {
           Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
-          "Content-Type": "application/json",
+          Accept: "application/json",
         },
       }
     );
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("TMDB ERROR:", response.status, errorText);
+
       return res.status(response.status).json({
         message: "TMDB request failed",
+        tmdbError: errorText,
       });
     }
 
@@ -259,16 +264,13 @@ const getWatchProviders = async (req, res) => {
       ...(regionData.buy || []),
     ];
 
-    res.json({
-      region,
-      providers, // ALWAYS an array
-    });
-  } catch (error) {
-    console.error("TMDB Watch Provider Error:", error);
-    res.status(500).json({ message: "Failed to fetch watch providers" });
+    res.json({ region, providers });
+  } catch (err) {
+    console.error("SERVER ERROR:", err);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
 
 
-module.exports = { getWatchProviders,fetchByGenre, fetchBollywoodMovies, fetchHollywoodMovies, fetchPopularMovies, fetchSeries, getGenreMap, searchTMDB , getMovieDetails,getTVDetails } 
+module.exports = { getWatchProviders, fetchByGenre, fetchBollywoodMovies, fetchHollywoodMovies, fetchPopularMovies, fetchSeries, getGenreMap, searchTMDB, getMovieDetails, getTVDetails } 
