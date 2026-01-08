@@ -225,12 +225,10 @@ const getTVDetails = async (req, res) => {
   }
 };
 
-
-
-const getWatchProviders = async (req,res)=> {
+const getWatchProviders = async (req, res) => {
   try {
     const { type, id } = req.params;
-    const region = req.query.region || "IN"; // default India
+    const region = req.query.region || "IN";
 
     if (!["movie", "tv"].includes(type)) {
       return res.status(400).json({ message: "Invalid type" });
@@ -246,23 +244,31 @@ const getWatchProviders = async (req,res)=> {
       }
     );
 
-    const data = await response.json();
+    if (!response.ok) {
+      return res.status(response.status).json({
+        message: "TMDB request failed",
+      });
+    }
 
-    const providers =
-      data?.results?.[region]?.flatrate ||
-      data?.results?.[region]?.rent ||
-      data?.results?.[region]?.buy ||
-      [];
+    const data = await response.json();
+    const regionData = data?.results?.[region] || {};
+
+    const providers = [
+      ...(regionData.flatrate || []),
+      ...(regionData.rent || []),
+      ...(regionData.buy || []),
+    ];
 
     res.json({
       region,
-      providers,
+      providers, // ALWAYS an array
     });
   } catch (error) {
     console.error("TMDB Watch Provider Error:", error);
     res.status(500).json({ message: "Failed to fetch watch providers" });
   }
-}
+};
+
 
 
 module.exports = { getWatchProviders,fetchByGenre, fetchBollywoodMovies, fetchHollywoodMovies, fetchPopularMovies, fetchSeries, getGenreMap, searchTMDB , getMovieDetails,getTVDetails } 
