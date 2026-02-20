@@ -9,9 +9,11 @@ const MoviesSection = ({ title, movies, type }) => {
   const [movie,setMovies] = useState([])
 
   useEffect(() => {
-    setMovies(movies)
-    if(movies){
-      setTimeout(() => { setIsLoading(false) }, 2000)
+   if (movies.length > 0) {
+      setMovies(movies)
+      if (movies) {
+        setTimeout(() => { setIsLoading(false) }, 2000)
+      }
     }
   }, [movies])
 
